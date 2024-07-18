@@ -1,67 +1,36 @@
-Overview
-This project provides a secure messaging client implementation using modern cryptographic techniques. The MessengerClient class allows users to generate certificates, exchange public keys, and securely send and receive messages with end-to-end encryption and forward secrecy.
+# End-to-End Encrypted Chat System
 
-Features
-Key Generation: Generates public/private key pairs for users using Elliptic Curve Diffie-Hellman (ECDH).
-Certificate Management: Manages certificates issued by a certificate authority to ensure authenticity.
-Message Encryption: Encrypts messages using AES-GCM for confidentiality and integrity.
-Forward Secrecy: Implements the Double Ratchet algorithm to ensure that past communication remains secure even if future keys are compromised.
-Prerequisites
-Node.js (v14.0.0 or later)
-Required cryptographic functions are provided in lib.js.
-Installation
-Clone the repository:
+This repository contains the implementation of an end-to-end encrypted chat system using JavaScript. The system employs cryptographic techniques to ensure secure communication between clients, protecting the confidentiality and integrity of messages exchanged.
 
-git clone <repository_url>
-cd <repository_directory>
-Install dependencies:
+## Features
 
-npm install
-Usage
+- **Certificate Generation and Verification**: Generates and verifies certificates for secure key exchange.
+- **ElGamal Key Exchange**: Utilizes ElGamal key pairs for secure key exchange.
+- **Double Ratchet Algorithm**: Implements the Signal protocol’s double ratchet algorithm for forward secrecy and post-compromise security.
+- **Authenticated Encryption**: Ensures messages are encrypted and authenticated, providing confidentiality and integrity.
+- **Tamper Detection**: Detects and handles tampering attempts, terminating the program if any tampering is detected.
 
-Creating a Messenger Client
-To create a MessengerClient instance, you need the public keys of the certificate authority and the government:
+## Implementation Details
 
+### Certificate Generation
 
-const { MessengerClient } = require('./path_to_messenger_client');
-const certAuthorityPublicKey = 'your_cert_authority_public_key';
-const govPublicKey = 'your_gov_public_key';
+The `generateCertificate` function generates an ElGamal key pair and creates a certificate containing the username and the public key. This certificate is used for secure key exchange with other clients.
 
-const client = new MessengerClient(certAuthorityPublicKey, govPublicKey);
+### Certificate Verification
 
-Generating a Certificate
-Each user must generate a certificate to be verified and stored by the certificate authority:
+The `receiveCertificate` function verifies the authenticity of a certificate using the trusted central party’s public key. If the certificate is valid, it is stored for future communication; otherwise, the program terminates to prevent tampering.
 
-const username = 'your_username';
-const certificate = await client.generateCertificate(username);
-// Send this certificate to the certificate authority for signing.
-Receiving a Certificate
-When you receive another user's certificate, verify its authenticity:
+### Sending Messages
 
+The `sendMessage` function sets up the session using the double ratchet algorithm, generating new keys for each message. It encrypts the message with the new keys and creates a header containing encrypted key information for the recipient.
 
-const receivedCertificate = {}; // The certificate object received from the user
-const signature = 'signature_from_cert_authority';
+### Receiving Messages
 
-await client.receiveCertificate(receivedCertificate, signature);
-Sending a Message
+The `receiveMessage` function sets up the session using the double ratchet algorithm and derives the necessary keys from the header information. It decrypts the message using the derived keys and handles any potential tampering attempts.
 
-To send a secure message to another user:
+## Usage
 
-const recipientUsername = 'recipient_username';
-const plaintextMessage = 'Hello, this is a secure message.';
+### Initialize the Messenger Client
 
-const [header, ciphertext] = await client.sendMessage(recipientUsername, plaintextMessage);
-// Send the [header, ciphertext] to the recipient
-Receiving a Message
-
-To receive and decrypt a message from another user:
-
-const senderUsername = 'sender_username';
-const receivedHeader = {}; // The header received from the sender
-const receivedCiphertext = 'ciphertext_from_sender';
-
-const plaintext = await client.receiveMessage(senderUsername, [receivedHeader, receivedCiphertext]);
-console.log('Decrypted message:', plaintext);
-File Structure
-messengerClient.js: Contains the implementation of the MessengerClient class.
-lib.js: Contains cryptographic helper functions used by the MessengerClient.
+```javascript
+const messenger = new MessengerClient(certAuthorityPublicKey, govPublicKey);
