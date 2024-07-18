@@ -4,7 +4,7 @@ This repository contains the implementation of an end-to-end encrypted chat syst
 ## Group Members
 150182 Kipruto Isaac Kiprotich
 135250 Felix Achachi
-150505 Malcolm Mwearey
+150505 Malcolm Mwarey
 151784 Eliud Kamau
 
 
