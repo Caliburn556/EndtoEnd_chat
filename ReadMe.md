@@ -31,5 +31,30 @@ The `sendMessage` function sets up the session using the double ratchet algorith
 
 The `receiveMessage` function sets up the session using the double ratchet algorithm and derives the necessary keys from the header information. It decrypts the message using the derived keys and handles any potential tampering attempts.
 
-### Screenshot
+
+
+## Usage
+###  Initialize the Messenger Client:
+
+const messenger = new MessengerClient(certAuthorityPublicKey, govPublicKey);
+
+
+### Generate a Certificate:
+const certificate = await messenger.generateCertificate('username');
+
+### Receive a Certificate:
+await messenger.receiveCertificate(certificate, signature);
+
+
+### Send a Message:
+const [header, ciphertext] = await messenger.sendMessage('recipientUsername', 'Hello, world!');
+
+
+### Receive a Message:
+const plaintext = await messenger.receiveMessage('senderUsername', [header, ciphertext]);
+### Dependencies
+lib.js: Contains cryptographic primitives required for the implementation.
+
+### Screenshot of the result
 ![alt text](screenshot_endtoendchat-1.png)
+
