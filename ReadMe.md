@@ -32,4 +32,4 @@ The `sendMessage` function sets up the session using the double ratchet algorith
 The `receiveMessage` function sets up the session using the double ratchet algorithm and derives the necessary keys from the header information. It decrypts the message using the derived keys and handles any potential tampering attempts.
 
 ### Screenshot
-![alt text](screenshot_endtoendchat.png)
+c:\Users\user\Desktop\proj2\w24_proj2_source\screenshot_endtoendchat.png
