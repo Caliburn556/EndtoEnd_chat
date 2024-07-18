@@ -1,6 +1,9 @@
 # End-to-End Encrypted Chat System
 
 This repository contains the implementation of an end-to-end encrypted chat system using JavaScript. The system employs cryptographic techniques to ensure secure communication between clients, protecting the confidentiality and integrity of messages exchanged.
+## Group Members
+150182 Kipruto Isaac Kiprotich
+
 
 ## Features
 
@@ -28,9 +31,5 @@ The `sendMessage` function sets up the session using the double ratchet algorith
 
 The `receiveMessage` function sets up the session using the double ratchet algorithm and derives the necessary keys from the header information. It decrypts the message using the derived keys and handles any potential tampering attempts.
 
-## Usage
-
-### Initialize the Messenger Client
-
-```javascript
-const messenger = new MessengerClient(certAuthorityPublicKey, govPublicKey);
+### Screenshot
+![alt text](screenshot_endtoendchat.png)
