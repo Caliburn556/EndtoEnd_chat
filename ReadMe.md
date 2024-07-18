@@ -3,6 +3,9 @@
 This repository contains the implementation of an end-to-end encrypted chat system using JavaScript. The system employs cryptographic techniques to ensure secure communication between clients, protecting the confidentiality and integrity of messages exchanged.
 ## Group Members
 150182 Kipruto Isaac Kiprotich
+135250 Felix Achachi
+150505 Malcolm Mwearey
+151784 Eliud Kamau
 
 
 ## Features
