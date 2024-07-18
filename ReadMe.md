@@ -35,7 +35,7 @@ The `receiveMessage` function sets up the session using the double ratchet algor
 
 ## Usage
 ###  Initialize the Messenger Client:
-`const messenger = new MessengerClient(certAuthorityPublicKey, govPublicKey);`
+const messenger = new MessengerClient(certAuthorityPublicKey, govPublicKey);
 
 ### Generate a Certificate:
 `const certificate = await messenger.generateCertificate('username');`
